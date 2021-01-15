@@ -34,9 +34,9 @@ namespace BrowserPicker
 			if (App.TargetURL != null)
 				CheckDefaultBrowser();
 
-			var active = Choices.Where(b => b.IsRunning).ToList();
-			if (active.Count == 1)
-				active[0].Select.Execute(null);
+			//var active = Choices.Where(b => b.IsRunning).ToList();
+			//if (active.Count == 1)
+			//	active[0].Select.Execute(null);
 		}
 
 		private void CheckDefaultBrowser()
@@ -64,7 +64,13 @@ namespace BrowserPicker
 
 		public ICommand RefreshBrowsers => new DelegateCommand(FindBrowsers);
 
-		public ICommand Configure => new DelegateCommand(() => ConfigurationMode = !ConfigurationMode);
+		public ICommand Configure => new DelegateCommand(() => {
+			ConfigurationMode = !ConfigurationMode;
+			if (!ConfigurationMode)
+			{
+				Configuration.BrowserList = Choices;
+			}
+		});
 
 		public ICommand Exit => new DelegateCommand(() => Application.Current.Shutdown());
 

@@ -93,7 +93,7 @@ namespace BrowserPicker
 				var key = list.CreateSubKey(browser.Name, true);
 				key.Set(nameof(browser.Name), browser.Name);
 				key.Set(nameof(browser.Command), browser.Command);
-				key.Set(nameof(browser.CommandArgs), browser.CommandArgs);
+				key.Set(nameof(browser.CommandArgs), browser.CommandArgs ?? "");
 				key.Set(nameof(browser.IconPath), browser.IconPath);
 				key.Set(nameof(browser.Usage), browser.Usage);
 			}

@@ -16,7 +16,8 @@ namespace BrowserPicker
 
 		private void BrowserEditor_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			DataContext = new Browser();
+			if (DataContext == null)
+				DataContext = new Browser();
 		}
 
 		private void Ok_OnClick(object sender, RoutedEventArgs e)

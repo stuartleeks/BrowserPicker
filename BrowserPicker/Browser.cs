@@ -14,6 +14,15 @@ namespace BrowserPicker
 	[DebuggerDisplay("{" + nameof(Name) + "}")]
 	public class Browser : INotifyPropertyChanged
 	{
+		private void CopyFrom(Browser browser)
+		{
+			Name = browser.Name;
+			IconPath = browser.IconPath;
+			Command = browser.Command;
+			CommandArgs = browser.CommandArgs;
+			Disabled = browser.Disabled;
+		}
+
 		public string Name
 		{
 			get => name;
@@ -100,6 +109,7 @@ namespace BrowserPicker
 		public DelegateCommand SelectPrivacy => new DelegateCommand(() => Launch(true), () => CanLaunch(true));
 		public DelegateCommand Disable => new DelegateCommand(() => Disabled = !Disabled);
 		public DelegateCommand Remove => new DelegateCommand(() => Removed = true);
+		public DelegateCommand Edit => new DelegateCommand(() => ShowEdit());
 
 		public bool IsRunning
 		{
@@ -155,6 +165,27 @@ namespace BrowserPicker
 		private bool CanLaunch(bool privacy)
 		{
 			return IsUsable && !(privacy && PrivacyArgs == null);
+		}
+
+		private void ShowEdit()
+		{
+			var browserCopy = new Browser();
+			browserCopy.CopyFrom(this);
+			var editor = new BrowserEditor
+			{
+				DataContext = browserCopy
+			};
+			editor.Show();
+			editor.Closing += Editor_Closing;
+		}
+
+		private void Editor_Closing(object sender, CancelEventArgs e)
+		{
+			((Window)sender).Closing -= Editor_Closing;
+			var updatedBrowser = ((Window)sender).DataContext as Browser;
+			if (updatedBrowser == null)
+				return;
+			CopyFrom(updatedBrowser);
 		}
 
 		private void Launch(bool privacy)

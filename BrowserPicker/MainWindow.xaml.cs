@@ -69,5 +69,10 @@ namespace BrowserPicker
 			Left = (w - e.NewSize.Width) / 2;
 			Top = (h - e.NewSize.Height) / 2;
 		}
+
+		private void BrowserList_Loaded(object sender, RoutedEventArgs e)
+		{
+
+		}
 	}
 }

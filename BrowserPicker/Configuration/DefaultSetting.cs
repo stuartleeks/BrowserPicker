@@ -83,13 +83,13 @@ namespace BrowserPicker.Configuration
 			{
 				case MatchType.Hostname:
 					return url.Host.EndsWith(Fragment) ? Fragment.Length : 0;
-				
+
 				case MatchType.Prefix:
 					return url.OriginalString.StartsWith(value) ? value.Length : 0;
-				
+
 				case MatchType.Regex:
 					return Regex.Match(url.OriginalString, value).Length;
-				
+
 				default:
 					return 0;
 			}

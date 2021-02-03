@@ -41,9 +41,9 @@ namespace BrowserPicker
 			if (App.TargetURL != null)
 				CheckDefaultBrowser();
 
-			var active = Choices.Where(b => b.IsRunning).ToList();
-			if (active.Count == 1)
-				active[0].Select.Execute(null);
+			//var active = Choices.Where(b => b.IsRunning).ToList();
+			//if (active.Count == 1)
+			//	active[0].Select.Execute(null);
 		}
 
 		private void CheckDefaultBrowser()

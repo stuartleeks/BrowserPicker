@@ -61,6 +61,9 @@ namespace BrowserPicker
 				return;
 
 			var browser = auto.OrderByDescending(o => o.matchLength).First().rule.Browser;
+			if (browser == "||prompt||")
+				return;
+			
 			var start = Choices.FirstOrDefault(c => c.Name == browser);
 			if (start == null || Configuration.DefaultsWhenRunning && !start.IsRunning)
 				return;
